@@ -1,0 +1,160 @@
+{
+  "name": "captur",
+  "version": "1.0.6",
+  "description": "A simple yet powerfull screen recording app",
+  "main": "main/index.js",
+  "scripts": {
+    "make:linux": "electron-builder --linux",
+    "make:macos": "electron-builder --mac --x64 --arm64",
+    "make:macos:x64": "electron-builder --mac --x64",
+    "make:macos:arm64": "electron-builder --mac --arm64",
+    "make:win": "electron-builder --win", 
+    "start": "nodemon --watch main --exec electron .  -–enable-logging",
+    "build": "next build renderer && next export renderer"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/achuthhadnoor/captur/out.git"
+  },
+  "keywords": [
+    "capture screen"
+  ],
+  "author": {
+    "name": "captur",
+    "email": "hello@captur.app"
+  },
+  "contributors": [
+    {
+      "name": "Achuth Hadnoor",
+      "url": "https://github.com/achuthhadnoor"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/achuthhadnoor/captur/issues"
+  },
+  "homepage": "https://captur.achuth.dev",
+  "build": {
+    "appId": "com.captur.uiuxdx",
+    "productName": "Captur",
+    "directories": {
+      "buildResources": "buildResources",
+      "output": "dist"
+    },
+    "files":["renderer"],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "artifactName": "${productName}-${version}-${os}.${ext}",
+      "icon": "assets/images/icon.icns",
+      "category": "public.app-category.developer-tools",
+      "identity": "Captur",
+      "gatekeeperAssess": false,
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "entitlements": "./entitlements/entitlements.mac.plist",
+      "entitlementsInherit": "./entitlements/entitlements.mac.plist",
+      "publish": [
+        "github"
+      ]
+    },
+    "dmg": {
+      "icon": "assets/images/icon.icns",
+      "sign": true
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/images/app-icon.ico"
+    },
+    "nsis": {
+      "oneClick": false
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Development",
+      "maintainer": "Captur"
+    },
+    "afterSign": "scripts/notarize.js"
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "production": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "preset-env": {
+                "modules": "commonjs"
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.5",
+    "axios": "=0.21.1",
+    "electron-is-dev": "^1.1.0",
+    "electron-log": "^4.0.2",
+    "electron-next": "^3.1.5",
+    "electron-store": "^7.0.1",
+    "electron-updater": "^4.3.5",
+    "is-electron": "^2.2.0",
+    "next": "^10.0.7",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-icons-kit": "^1.3.1",
+    "styled-components": "^4.4.1"
+  },
+  "devDependencies": {
+    "electron": "^11.2.3",
+    "electron-builder": "^22.9.1",
+    "electron-notarize": "^1.0.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "nodemon": "^2.0.7",
+    "cross-env": "^7.0.2"
+  }
+}
